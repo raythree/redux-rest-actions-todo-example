@@ -1,0 +1,8 @@
+{
+  "short_name": "Example Todo",
+  "name": "Exampe TODO for redux-rest-actions",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

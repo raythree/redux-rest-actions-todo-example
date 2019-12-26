@@ -1,0 +1,11 @@
+.header {
+  height: 40px;
+}
+.header h2 {
+  margin-top: 18px;
+}
+.warning {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: red;
+}
