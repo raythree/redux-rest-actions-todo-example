@@ -3,20 +3,6 @@ import {createReducer} from '@reduxjs/toolkit';
 import {initiate, error} from './reducerHelper';
 import * as actions from '../actions';
 
-function replaceTodo(draft, action) {
-  const {id} = action.payload;
-  const index = draft.todos.findIndex(e => e.id === id);
-  if (index === -1) return;
-  draft.todos.splice(index, 1, action.payload);
-}
-
-function deleteTodo(draft, action) {
-  const {id} = action.payload;
-  const index = draft.todos.findIndex(e => e.id === id);
-  if (index === -1) return;
-  draft.todos.splice(index, 1);
-}
-
 const initialState = {
   todos: [],
   pending: false,
@@ -32,13 +18,13 @@ export default createReducer(initialState, {
     draft.todos = action.payload.todos;
   },
   [actions.addTodoSuccess]: (draft, action) => {
-    draft.todos.push(action.payload);
+    draft.pending = false;
   },
   [actions.deleteTodoSuccess]: (draft, action) => {
-    deleteTodo(draft, action);
+    draft.pending = false;
   },
   [actions.updateTodoSuccess]: (draft, action) => {
-    replaceTodo(draft, action);
+    draft.pending = false;
   },
   [actions.getTodosError]: (draft, action) => {
     error(draft, action);
