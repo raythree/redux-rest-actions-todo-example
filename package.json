@@ -1,7 +1,6 @@
 {
   "name": "redux-rest-actions-todo-example",
   "version": "0.1.0",
-  "private": true,
   "homepage": "https://raythree.github.io/redux-rest-actions-todo-example",
   "dependencies": {
     "@material-ui/core": "^4.7.2",
@@ -26,7 +25,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"ls ,
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
