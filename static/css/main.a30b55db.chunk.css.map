@@ -1,0 +1,1 @@
+{"version":3,"sources":["App.css"],"names":[],"mappings":"AAAA,QACE,WACF,CACA,WACE,eACF,CACA,SACE,eAAgB,CAChB,eAAiB,CACjB,SACF","file":"main.a30b55db.chunk.css","sourcesContent":[".header {\n  height: 40px;\n}\n.header h2 {\n  margin-top: 18px;\n}\n.warning {\n  font-size: 1.2em;\n  font-weight: bold;\n  color: red;\n}\n"]}
