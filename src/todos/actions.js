@@ -5,17 +5,7 @@ export const getTodos = createAction('GET_TODOS', filters =>
   filters ? {payload: {params: {filters}}} : {}
 );
 export const getTodosSuccess = createAction('GET_TODOS_SUCCESS');
-
 export const getTodosError = createAction('GET_TODOS_ERROR');
-
-export const setFilters = createAction('SET_FILTERS');
-
-// This is used instead of calling setFilters directly so
-// that the URL gets updated on every filter change.
-export const updateFilters = (filters, history) => dispatch => {
-  dispatch(setFilters(filters));
-  history.push({search: toQueryString(filters)});
-};
 
 export const getTodo = createAction('GET_TODO', id => ({payload: {id}}));
 export const getTodoSuccess = createAction('GET_TODO_SUCCESS');
@@ -37,4 +27,15 @@ export const deleteTodo = createAction('DELETE_TODO', id => ({payload: {id}}));
 export const deleteTodoSuccess = createAction('DELETE_TODO_SUCCESS');
 export const deleteTodoError = createAction('DELETE_TODO_ERROR');
 
+// This action stores current filters. Instead of calling it directly,
+// updateFilters is invoked to change the URL in the browser, using
+// redux-thunk to handle the side effect.
+export const setFilters = createAction('SET_FILTERS');
+
+export const updateFilters = (filters, history) => dispatch => {
+  dispatch(setFilters(filters));
+  history.push({search: toQueryString(filters)});
+};
+// This just clears the todo from the update reducer when we either
+// save or cancel the edit action.
 export const cancelUpdate = createAction('CANCEL_UPDATE');
