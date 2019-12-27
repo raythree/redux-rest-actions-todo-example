@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
 export default PropTypes.shape({
-  visibilityFilter: PropTypes.string,
+  visibility: PropTypes.string,
   searchFilter: PropTypes.string
 });

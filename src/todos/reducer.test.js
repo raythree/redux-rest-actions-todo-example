@@ -10,7 +10,7 @@ describe('todos root reducer tests', () => {
         error: null
       },
       filters: {
-        visibilityFilter: 'all',
+        visibility: 'all',
         search: ''
       },
       update: {

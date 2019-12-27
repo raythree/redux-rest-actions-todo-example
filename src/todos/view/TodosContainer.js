@@ -13,7 +13,7 @@ import {
   selectTodosPending,
   selectUpdatePending,
   selectUpdateError,
-  selectVisibilityFilter,
+  selectVisibility,
   selectSearchFilter,
   selectFilters
 } from '../selectors';
@@ -40,7 +40,7 @@ const mapStateToProps = state => ({
   pending: selectTodosPending(state),
   updatePending: selectUpdatePending(state),
   updateError: selectUpdateError(state),
-  visibilityFilter: selectVisibilityFilter(state),
+  visibility: selectVisibility(state),
   searchFilter: selectSearchFilter(state),
   filters: selectFilters(state)
 });

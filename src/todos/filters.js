@@ -6,7 +6,7 @@ export const ALL = 'all';
 export const COMPLETED = 'completed';
 export const NOT_COMPLETED = 'not_completed';
 
-export function checkVisibilityFilter(s) {
+export function checkVisibility(s) {
   if (!s) return ALL;
   if (typeof s !== 'string') return ALL;
   const check = s.toLocaleLowerCase();
@@ -17,7 +17,7 @@ export function checkVisibilityFilter(s) {
 }
 
 export const toQueryString = filters => {
-  const obj = {visibility: filters.visibilityFilter};
+  const obj = {visibility: filters.visibility};
   // don't include empty strings
   if (filters.search) obj.search = filters.search;
   return queryString.stringify(obj);
@@ -28,10 +28,10 @@ export const parseQueryString = s => {
   const filters = {};
   if (!obj)
     return {
-      visibilityFilter: ALL,
+      visibility: ALL,
       search: ''
     };
   filters.search = obj.search || '';
-  filters.visibilityFilter = checkVisibilityFilter(obj.visibility);
+  filters.visibility = checkVisibility(obj.visibility);
   return filters;
 };

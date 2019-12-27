@@ -29,7 +29,7 @@ function TodosComponent(props) {
               todos={props.todos}
               pending={props.pending}
               updatePending={props.updatePending}
-              visibilityFilter={props.visibilityFilter}
+              visibility={props.visibility}
               searchFilter={props.searchFilter}
               updateFilters={props.updateFilters}
               filters={props.filters}
@@ -70,7 +70,7 @@ TodosComponent.propTypes = {
   cancelUpdate: PropTypes.func,
   todos: PropTypes.arrayOf(todoPropTypes),
   todo: todoPropTypes,
-  visibilityFilter: PropTypes.string,
+  visibility: PropTypes.string,
   searchFilter: PropTypes.string,
   pending: PropTypes.bool,
   updatePending: PropTypes.bool,

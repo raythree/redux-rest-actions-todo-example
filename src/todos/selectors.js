@@ -7,5 +7,5 @@ export const selectUpdateError = state => state.update.error;
 export const selectTodo = state => state.update.todo;
 
 export const selectFilters = state => state.filters;
-export const selectVisibilityFilter = state => state.filters.visibilityFilter;
+export const selectVisibility = state => state.filters.visibility;
 export const selectSearchFilter = state => state.filters.search;

@@ -2,7 +2,7 @@ import {createAction} from '@reduxjs/toolkit';
 import {toQueryString} from './filters';
 
 export const getTodos = createAction('GET_TODOS', filters =>
-  filters ? {payload: {params: {filters}}} : {}
+  filters ? {payload: {params: {...filters}}} : {}
 );
 export const getTodosSuccess = createAction('GET_TODOS_SUCCESS');
 export const getTodosError = createAction('GET_TODOS_ERROR');

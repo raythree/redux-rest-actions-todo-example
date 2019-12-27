@@ -26,8 +26,8 @@ function DeleteTodo(props) {
   }, [history, cancelUpdate]);
 
   const onDelete = useCallback(() => {
-    deleteTodo(id).then(() => {
-      history.push('/');
+    deleteTodo(id).then(res => {
+      if (res !== null) history.push('/');
     });
   }, [history, id, deleteTodo]);
 
@@ -35,6 +35,7 @@ function DeleteTodo(props) {
   if (props.updateError)
     return (
       <>
+        <h2>Error deleting TODO</h2>
         <Box color="red" mb="1em">
           {props.updateError.toString()}
         </Box>

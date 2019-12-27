@@ -29,7 +29,7 @@ import {COMPLETED, NOT_COMPLETED, parseQueryString} from '../filters';
 function TodoList(props) {
   const {
     getTodos,
-    visibilityFilter,
+    visibility,
     searchFilter,
     updateFilters,
     addTodo,
@@ -71,7 +71,7 @@ function TodoList(props) {
 
   const changeFilter = useCallback(
     f => {
-      const newFilters = {...filters, visibilityFilter: f};
+      const newFilters = {...filters, visibility: f};
       updateFilters(newFilters, history);
       getTodos(newFilters);
     },
@@ -101,6 +101,11 @@ function TodoList(props) {
     [getTodos, filters, updateTodo]
   );
 
+  const retry = useCallback(() => {
+    console.log('retry');
+    getTodos(filters);
+  }, [getTodos, filters]);
+
   const setTodo = useCallback(e => {
     setNewTodo(e.target.value);
   }, []);
@@ -108,9 +113,13 @@ function TodoList(props) {
   const addNewTodo = useCallback(() => {
     const value = newTodo.trim();
     if (!value) return;
-    addTodo({content: value});
-    setNewTodo('');
-  }, [addTodo, newTodo]);
+    addTodo({content: value}).then(res => {
+      if (res) {
+        setNewTodo('');
+        getTodos(filters);
+      }
+    });
+  }, [addTodo, newTodo, getTodos, filters]);
 
   const handleKeypress = useCallback(
     e => {
@@ -124,7 +133,7 @@ function TodoList(props) {
   const busy = useMemo(() => pending || updatePending, [pending, updatePending]);
 
   const listOrErrorMessage = useMemo(() => {
-    if (error) return <ErrorMessage error={error} />;
+    if (error) return <ErrorMessage retry={retry} error={error} />;
     if (!todos) return null;
 
     const empty = todos.length ? null : <EmptyList filters={filters} />;
@@ -166,7 +175,7 @@ function TodoList(props) {
         </List>
       )
     );
-  }, [todos, busy, deleteItem, editItem, toggleComplete, error, filters]);
+  }, [todos, busy, deleteItem, editItem, toggleComplete, error, filters, retry]);
 
   return (
     <>
@@ -191,13 +200,13 @@ function TodoList(props) {
           </Button>
         </Box>
         <Box ml="1em">
-          Showing: {filterDisplay(visibilityFilter)}
+          Showing: {filterDisplay(visibility)}
           <ButtonMenu
             label="Change Filter"
             items={filterOpts}
             onChange={changeFilter}
             component="span"
-            selected={visibilityFilter}
+            selected={visibility}
           />
         </Box>
         <TextField
@@ -232,7 +241,7 @@ TodoList.propTypes = {
   getTodos: PropTypes.func,
   addTodo: PropTypes.func,
   updateTodo: PropTypes.func,
-  visibilityFilter: PropTypes.string,
+  visibility: PropTypes.string,
   searchFilter: PropTypes.string,
   updateFilters: PropTypes.func,
   error: PropTypes.object, // eslint-disable-line

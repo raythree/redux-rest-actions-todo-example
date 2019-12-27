@@ -9,10 +9,10 @@ describe('todo action tests', () => {
       type: 'GET_TODOS'
     });
 
-    action = getTodos('complete');
+    action = getTodos({visibility: 'complete'});
     expect(action).toEqual({
       type: 'GET_TODOS',
-      payload: {params: {filters: 'complete'}}
+      payload: {params: {visibility: 'complete'}}
     });
   });
 

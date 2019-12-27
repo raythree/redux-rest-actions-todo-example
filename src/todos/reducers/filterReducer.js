@@ -6,7 +6,7 @@ import {setFilters} from '../actions';
 
 const initialState = {
   search: '',
-  visibilityFilter: filters.ALL
+  visibility: filters.ALL
 };
 
 export default createReducer(initialState, {

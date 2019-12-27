@@ -53,24 +53,4 @@ describe('listReducer tests', () => {
       pending: false
     });
   });
-
-  it('should handle the update todo action', () => {
-    const state = {
-      todos: [
-        {id: '1', content: 'do something'},
-        {id: '2', content: 'do something else'}
-      ],
-      pending: false,
-      error: null
-    };
-    const action = actions.updateTodoSuccess({id: '2', content: 'modified'});
-    expect(reducer(state, action)).toEqual({
-      todos: [
-        {id: '1', content: 'do something'},
-        {id: '2', content: 'modified'}
-      ],
-      pending: false,
-      error: null
-    });
-  });
 });

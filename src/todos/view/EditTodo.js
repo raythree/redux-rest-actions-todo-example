@@ -34,8 +34,9 @@ function EditTodo(props) {
   }, [history, cancelUpdate]);
 
   const save = useCallback(() => {
-    updateTodo(id, {id, content: value, completed}).then(() => {
-      history.push('/');
+    updateTodo(id, {id, content: value, completed}).then(res => {
+      // result is null in the case of an error
+      if (res !== null) history.push('/');
     });
   }, [updateTodo, history, id, value, completed]);
 
@@ -50,6 +51,7 @@ function EditTodo(props) {
   if (props.updateError)
     return (
       <>
+        <h3>Error saving TODO</h3>
         <Box color="red" mb="1em">
           {props.updateError.toString()}
         </Box>
@@ -63,9 +65,15 @@ function EditTodo(props) {
 
   return (
     <>
-      <div>Edit Todo</div>
+      <h2>Edit Todo</h2>
       <Box mt="1em" mb="1em">
-        <TextField id="edit-todo" variant="outlined" onChange={onChangeInput} value={value} />
+        <TextField
+          id="edit-todo"
+          variant="outlined"
+          autoComplete={false}
+          onChange={onChangeInput}
+          value={value}
+        />
       </Box>
       <Box mt="1em" mb="1em">
         <Button variant="contained" onClick={cancel}>

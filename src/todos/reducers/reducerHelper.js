@@ -7,7 +7,7 @@ export function initiate(draft) {
 // for errors, clear pending flag and store the error
 export function error(draft, action) {
   // eslint-disable-next-line
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== 'test') {
     // eslint-disable-next-line
     console.log(`ERROR: ${action.payload.toString()}`);
   }

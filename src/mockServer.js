@@ -29,8 +29,8 @@ export function mockServer() {
     //  eslint-disable-next-line
     console.log(`query ===> ${JSON.stringify(config.params)}`);
     let vf = 'all';
-    if (config.params && config.params.filters && config.params.filters.visibilityFilter) {
-      vf = config.params.filters.visibilityFilter;
+    if (config.params && config.params.filters && config.params.filters.visibility) {
+      vf = config.params.filters.visibility;
     }
     newTodos = newTodos.filter(item => {
       if (vf === 'all') return true;

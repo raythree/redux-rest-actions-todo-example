@@ -5,14 +5,14 @@ import * as filters from '../filters';
 import filtersPropTypes from './filtersPropTypes';
 
 function EmptyList(props) {
-  const {visibilityFilter, search} = props.filters;
+  const {visibility, search} = props.filters;
 
   let message = 'You have nothing to do!';
 
-  if (visibilityFilter === filters.NOT_COMPLETED) {
+  if (visibility === filters.NOT_COMPLETED) {
     message = 'You have no uncompleted items';
     if (search) message += ' that match your search';
-  } else if (visibilityFilter === filters.COMPLETED) {
+  } else if (visibility === filters.COMPLETED) {
     message = 'You have no completed items';
     if (search) message += ' that match your search';
   } else if (search) {
