@@ -13,20 +13,23 @@ function EditTodo(props) {
 
   const {id} = useParams('id');
 
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(null);
   const [completed, setCompleted] = useState(false);
+  const [fetchError, setFetchError] = useState(null);
 
   useEffect(() => {
     // redux-rest-middleware APIs return a promise that
-    // resolves with the payload on success. We use this
-    // to update local state with the TODO being edited.
+    // resolves with the payload on success or null
+    // if an error occurred.
     getTodo(id).then(payload => {
-      if (payload && payload.content) {
+      if (payload) {
         setValue(payload.content);
         setCompleted(payload.completed);
+      } else {
+        setFetchError('Failed to retrieve TODO');
       }
     });
-  }, [id, getTodo]);
+  }, [id, getTodo, fetchError]);
 
   const cancel = useCallback(() => {
     cancelUpdate();
@@ -48,10 +51,15 @@ function EditTodo(props) {
   );
 
   if (props.updatePending) return <CircularProgress />;
-  if (props.updateError)
+
+  let errorMessage = null;
+  if (fetchError) errorMessage = 'Error retrieving TODO';
+  else if (props.updateError) errorMessage = 'Error saving TODO';
+
+  if (errorMessage)
     return (
       <>
-        <h3>Error saving TODO</h3>
+        <h3>{errorMessage}</h3>
         <Box color="red" mb="1em">
           {props.updateError.toString()}
         </Box>
@@ -61,7 +69,7 @@ function EditTodo(props) {
       </>
     );
 
-  if (!props.todo) return null;
+  if (!value) return null;
 
   return (
     <>
@@ -70,7 +78,7 @@ function EditTodo(props) {
         <TextField
           id="edit-todo"
           variant="outlined"
-          autoComplete={false}
+          autoComplete="disable"
           onChange={onChangeInput}
           value={value}
         />
@@ -96,12 +104,7 @@ EditTodo.propTypes = {
   updateError: PropTypes.shape({
     message: PropTypes.string
   }),
-  updatePending: PropTypes.bool,
-  todo: PropTypes.shape({
-    id: PropTypes.string,
-    content: PropTypes.string,
-    completed: PropTypes.bool
-  })
+  updatePending: PropTypes.bool
 };
 
 export default EditTodo;

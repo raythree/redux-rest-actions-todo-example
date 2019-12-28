@@ -41,7 +41,6 @@ function TodosComponent(props) {
               updateTodo={props.updateTodo}
               updateError={props.updateError}
               updatePending={props.updatePending}
-              todo={props.todo}
               cancelUpdate={props.cancelUpdate}
             />
           </Route>
