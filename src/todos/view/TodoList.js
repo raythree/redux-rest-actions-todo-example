@@ -102,7 +102,6 @@ function TodoList(props) {
   );
 
   const retry = useCallback(() => {
-    console.log('retry');
     getTodos(filters);
   }, [getTodos, filters]);
 
