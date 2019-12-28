@@ -5,25 +5,13 @@ import * as actions from '../actions';
 
 const initialState = {
   pending: false,
-  error: null,
-  todo: null
+  error: null
 };
 
 export default createReducer(initialState, {
   // get a todo - for edit
   [actions.getTodo]: draft => {
     initiate(draft);
-  },
-  [actions.getTodoSuccess]: (draft, action) => {
-    draft.pending = false;
-    draft.todo = action.payload;
-  },
-  [actions.getTodoError]: (draft, action) => {
-    error(draft, action);
-  },
-  // remove the todo being updated
-  [actions.cancelUpdate]: draft => {
-    draft.todo = null;
   },
   // add a TODO
   [actions.addTodo]: draft => {
@@ -41,7 +29,6 @@ export default createReducer(initialState, {
   },
   [actions.updateTodoSuccess]: draft => {
     draft.pending = false;
-    draft.todo = null;
   },
   [actions.updateTodoError]: (draft, action) => {
     error(draft, action);

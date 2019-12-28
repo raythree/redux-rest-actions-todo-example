@@ -3,7 +3,7 @@ import {api} from 'redux-rest-actions';
 import {connect} from 'react-redux';
 import TodosComponent from './TodosComponent';
 
-import {updateFilters, cancelUpdate} from '../actions';
+import {updateFilters} from '../actions';
 import {
   // For client side filtering
   // selectVisibleTodos,
@@ -45,4 +45,4 @@ const mapStateToProps = state => ({
   filters: selectFilters(state)
 });
 
-export default connect(mapStateToProps, {updateFilters, cancelUpdate})(TodosContainer);
+export default connect(mapStateToProps, {updateFilters})(TodosContainer);

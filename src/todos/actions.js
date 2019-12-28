@@ -36,6 +36,3 @@ export const updateFilters = (filters, history) => dispatch => {
   dispatch(setFilters(filters));
   history.push({search: toQueryString(filters)});
 };
-// This just clears the todo from the update reducer when we either
-// save or cancel the edit action.
-export const cancelUpdate = createAction('CANCEL_UPDATE');

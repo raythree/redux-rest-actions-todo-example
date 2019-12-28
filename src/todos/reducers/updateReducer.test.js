@@ -16,8 +16,7 @@ describe('updateReducer tests', () => {
   it('should return the correct initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       error: null,
-      pending: false,
-      todo: null
+      pending: false
     });
   });
 
@@ -56,8 +55,7 @@ describe('updateReducer tests', () => {
   it('should handle updateTodoSuccess', () => {
     expect(reducer(pendingState, actions.updateTodoSuccess())).toEqual({
       error: null,
-      pending: false,
-      todo: null
+      pending: false
     });
   });
 

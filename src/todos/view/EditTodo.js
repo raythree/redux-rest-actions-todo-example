@@ -7,7 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {useHistory, useParams} from 'react-router-dom';
 
 function EditTodo(props) {
-  const {getTodo, updateTodo, cancelUpdate} = props;
+  const {getTodo, updateTodo} = props;
 
   const history = useHistory();
 
@@ -32,9 +32,8 @@ function EditTodo(props) {
   }, [id, getTodo, fetchError]);
 
   const cancel = useCallback(() => {
-    cancelUpdate();
     history.push('/');
-  }, [history, cancelUpdate]);
+  }, [history]);
 
   const save = useCallback(() => {
     updateTodo(id, {id, content: value, completed}).then(res => {
@@ -100,7 +99,6 @@ function EditTodo(props) {
 EditTodo.propTypes = {
   getTodo: PropTypes.func.isRequired,
   updateTodo: PropTypes.func.isRequired,
-  cancelUpdate: PropTypes.func,
   updateError: PropTypes.shape({
     message: PropTypes.string
   }),

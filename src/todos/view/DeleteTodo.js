@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
@@ -7,23 +7,27 @@ import Paper from '@material-ui/core/Paper';
 import {useHistory, useParams} from 'react-router-dom';
 
 import Confirmation from '../../components/Confirmation';
-import todoPropTyes from './todoPropTypes';
 
 function DeleteTodo(props) {
-  const {getTodo, todo, deleteTodo, cancelUpdate} = props;
+  const {getTodo, deleteTodo, updatePending, updateError} = props;
 
   const history = useHistory();
 
   const {id} = useParams('id');
 
+  const [todo, setTodo] = useState(null);
+  const [fetchError, setFetchError] = useState(null);
+
   useEffect(() => {
-    getTodo(id);
-  }, [id, getTodo]);
+    getTodo(id).then(data => {
+      if (todo) setTodo(data);
+      else setFetchError('Failed to retrieve TODO');
+    });
+  }, [id, getTodo, todo, fetchError]);
 
   const onCancel = useCallback(() => {
-    cancelUpdate();
     history.push('/');
-  }, [history, cancelUpdate]);
+  }, [history]);
 
   const onDelete = useCallback(() => {
     deleteTodo(id).then(res => {
@@ -31,13 +35,18 @@ function DeleteTodo(props) {
     });
   }, [history, id, deleteTodo]);
 
-  if (props.updatePending) return <CircularProgress />;
-  if (props.updateError)
+  if (updatePending) return <CircularProgress />;
+
+  let errorMessage = null;
+  if (fetchError) errorMessage = fetchError;
+  else if (updateError) errorMessage = updateError;
+
+  if (errorMessage)
     return (
       <>
-        <h2>Error deleting TODO</h2>
+        <h2>Unable to Delete TODO</h2>
         <Box color="red" mb="1em">
-          {props.updateError.toString()}
+          {errorMessage}
         </Box>
         <Button variant="contained" onClick={onCancel}>
           BACK
@@ -45,7 +54,7 @@ function DeleteTodo(props) {
       </>
     );
 
-  if (!props.todo) return null;
+  if (!todo) return null;
 
   return (
     <>
@@ -68,9 +77,7 @@ DeleteTodo.propTypes = {
   getTodo: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
   updateError: PropTypes.object, // eslint-disable-line
-  updatePending: PropTypes.bool,
-  todo: todoPropTyes,
-  cancelUpdate: PropTypes.func
+  updatePending: PropTypes.bool
 };
 
 export default DeleteTodo;

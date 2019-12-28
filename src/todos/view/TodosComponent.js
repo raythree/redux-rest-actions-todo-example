@@ -41,7 +41,6 @@ function TodosComponent(props) {
               updateTodo={props.updateTodo}
               updateError={props.updateError}
               updatePending={props.updatePending}
-              cancelUpdate={props.cancelUpdate}
             />
           </Route>
           <Route exact path="/delete/:id">
@@ -51,7 +50,6 @@ function TodosComponent(props) {
               updateError={props.updateError}
               updatePending={props.updatePending}
               todo={props.todo}
-              cancelUpdate={props.cancelUpdate}
             />
           </Route>
         </Switch>
@@ -66,7 +64,6 @@ TodosComponent.propTypes = {
   addTodo: PropTypes.func,
   updateTodo: PropTypes.func,
   deleteTodo: PropTypes.func,
-  cancelUpdate: PropTypes.func,
   todos: PropTypes.arrayOf(todoPropTypes),
   todo: todoPropTypes,
   visibility: PropTypes.string,

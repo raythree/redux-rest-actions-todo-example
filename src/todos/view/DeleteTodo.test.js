@@ -2,7 +2,7 @@
 import React from 'react';
 import {Router} from 'react-router';
 import {createMemoryHistory} from 'history';
-import {render, fireEvent} from '@testing-library/react';
+import {render, fireEvent, waitForElement} from '@testing-library/react';
 import DeleteTodo from './DeleteTodo';
 
 describe('DeleteTodo tests', () => {
@@ -11,7 +11,7 @@ describe('DeleteTodo tests', () => {
   beforeEach(() => {
     history = createMemoryHistory({initialEntries: ['/delete/1']});
     props = {};
-    props.getTodo = jest.fn();
+    props.getTodo = jest.fn(() => Promise.resolve({content: 'do stuff', completed: false}));
     props.deleteTodo = jest.fn().mockImplementation(() => Promise.resolve('1'));
     (props.todo = {id: '1', content: 'do something', completed: false}),
       (props.updatePending = false),
@@ -19,22 +19,17 @@ describe('DeleteTodo tests', () => {
     props.cancelUpdate = jest.fn();
   });
 
-  it('renders', () => {
-    // const h = {
-    //   push: jest.fn(),
-    //   listen: jest.fn(),
-    //   location: {pathname: '/delete/1'}
-    // }
-
+  it('renders', async () => {
     const {getByText} = render(
       <Router history={history}>
         <DeleteTodo {...props} />
       </Router>
     );
-
-    expect(getByText(/are you sure/i));
-    expect(getByText(/do something/i));
-    expect(getByText(/not completed/i));
+    await waitForElement(() => {
+      getByText(/are you sure/i);
+      getByText(/do something/i);
+      getByText(/not completed/i);
+    });
   });
 
   it('cancels delete', () => {
