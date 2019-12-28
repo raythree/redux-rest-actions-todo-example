@@ -20,10 +20,14 @@ function DeleteTodo(props) {
 
   useEffect(() => {
     getTodo(id).then(data => {
-      if (todo) setTodo(data);
-      else setFetchError('Failed to retrieve TODO');
+      if (data) {
+        setTodo(data);
+      } else {
+        setFetchError('Failed to retrieve TODO');
+      }
     });
-  }, [id, getTodo, todo, fetchError]);
+    // eslint-disable-next-line
+  }, []);
 
   const onCancel = useCallback(() => {
     history.push('/');
@@ -39,9 +43,9 @@ function DeleteTodo(props) {
 
   let errorMessage = null;
   if (fetchError) errorMessage = fetchError;
-  else if (updateError) errorMessage = updateError;
+  else if (updateError) errorMessage = updateError.toString();
 
-  if (errorMessage)
+  if (errorMessage) {
     return (
       <>
         <h2>Unable to Delete TODO</h2>
@@ -53,6 +57,7 @@ function DeleteTodo(props) {
         </Button>
       </>
     );
+  }
 
   if (!todo) return null;
 

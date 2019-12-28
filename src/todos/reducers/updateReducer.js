@@ -9,9 +9,10 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
-  // get a todo - for edit
-  [actions.getTodo]: draft => {
-    initiate(draft);
+  [actions.getTodo]: (draft, action) => {
+    // For edit and delete actions, fetching the todo again
+    // clears any previous error.
+    draft.error = null;
   },
   // add a TODO
   [actions.addTodo]: draft => {

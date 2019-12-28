@@ -7,7 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {useHistory, useParams} from 'react-router-dom';
 
 function EditTodo(props) {
-  const {getTodo, updateTodo} = props;
+  const {getTodo, updateTodo, updateError, updatePending} = props;
 
   const history = useHistory();
 
@@ -29,7 +29,8 @@ function EditTodo(props) {
         setFetchError('Failed to retrieve TODO');
       }
     });
-  }, [id, getTodo, fetchError]);
+    // eslint-disable-next-line
+  }, []);
 
   const cancel = useCallback(() => {
     history.push('/');
@@ -49,24 +50,24 @@ function EditTodo(props) {
     [setValue]
   );
 
-  if (props.updatePending) return <CircularProgress />;
+  if (updatePending) return <CircularProgress />;
 
   let errorMessage = null;
   if (fetchError) errorMessage = 'Error retrieving TODO';
-  else if (props.updateError) errorMessage = 'Error saving TODO';
-
-  if (errorMessage)
+  else if (updateError) errorMessage = updateError.toString();
+  if (errorMessage) {
     return (
       <>
-        <h3>{errorMessage}</h3>
+        <h3>Unable to Edit TODO</h3>
         <Box color="red" mb="1em">
-          {props.updateError.toString()}
+          {errorMessage}
         </Box>
         <Button variant="contained" onClick={cancel}>
           BACK
         </Button>
       </>
     );
+  }
 
   if (!value) return null;
 

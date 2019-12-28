@@ -5,8 +5,6 @@ import TodosComponent from './TodosComponent';
 
 import {updateFilters} from '../actions';
 import {
-  // For client side filtering
-  // selectVisibleTodos,
   selectTodos,
   selectTodo,
   selectTodosError,
@@ -32,8 +30,6 @@ function TodosContainer(props) {
 }
 
 const mapStateToProps = state => ({
-  // For client side filtering, use the next line instead
-  // todos: selectVisibleTodos(state),
   todos: selectTodos(state),
   todo: selectTodo(state),
   listError: selectTodosError(state),
