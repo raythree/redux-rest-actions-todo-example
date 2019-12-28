@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 
 function ErrorMessage({error, retry}) {
   return (
-    <Box mt="3em" color="red">
+    <Box mt="1em" color="red">
       {error.message}
       <Box m="1em">
         <Button onClick={retry} variant="contained">
