@@ -6,19 +6,21 @@ import Button from '@material-ui/core/Button';
 function ErrorMessage({error, retry}) {
   return (
     <Box mt="1em" color="red">
-      {error.message}
-      <Box m="1em">
-        <Button onClick={retry} variant="contained">
-          Retry
-        </Button>
-      </Box>
+      {error}
+      {retry && (
+        <Box m="1em">
+          <Button onClick={retry} variant="contained">
+            Retry
+          </Button>
+        </Box>
+      )}
     </Box>
   );
 }
 
 ErrorMessage.propTypes = {
-  error: PropTypes.object, // eslint-disable-line
-  retry: PropTypes.func.isRequired
+  error: PropTypes.string.isRequired,
+  retry: PropTypes.func
 };
 
 export default ErrorMessage;

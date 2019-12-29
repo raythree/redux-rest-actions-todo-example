@@ -54,13 +54,19 @@ function TodoList(props) {
   ];
 
   const [newTodo, setNewTodo] = useState('');
+  // When an update error occurs, this distinguishes whether it
+  // was an Add or Update TODO, which are both handled by the
+  // todo list.
+  const [lastUpdateAction, setLastUpdateAction] = useState('');
+
   const history = useHistory();
 
   useEffect(() => {
     const filterValues = parseQueryString(window.location.search);
     updateFilters(filterValues, history);
     getTodos(filterValues);
-  }, [getTodos, updateFilters, history]);
+    // eslint-disable-next-line
+  }, []);
 
   const deleteItem = useCallback(
     id => {
@@ -96,7 +102,10 @@ function TodoList(props) {
 
   const toggleComplete = useCallback(
     item => {
-      updateTodo(item.id, {...item, completed: !item.completed}).then(() => getTodos(filters));
+      setLastUpdateAction('update');
+      updateTodo(item.id, {...item, completed: !item.completed}).then(res => {
+        if (res) getTodos(filters);
+      });
     },
     [getTodos, filters, updateTodo]
   );
@@ -112,6 +121,7 @@ function TodoList(props) {
   const addNewTodo = useCallback(() => {
     const value = newTodo.trim();
     if (!value) return;
+    setLastUpdateAction('add');
     addTodo({content: value}).then(res => {
       if (res) {
         setNewTodo('');
@@ -131,8 +141,7 @@ function TodoList(props) {
 
   const busy = useMemo(() => pending || updatePending, [pending, updatePending]);
 
-  const listOrErrorMessage = useMemo(() => {
-    if (error) return <ErrorMessage retry={retry} error={error} />;
+  const listOrEmptyMessage = useMemo(() => {
     if (!todos) return null;
 
     const empty = todos.length ? null : <EmptyList filters={filters} />;
@@ -174,7 +183,12 @@ function TodoList(props) {
         </List>
       )
     );
-  }, [todos, busy, deleteItem, editItem, toggleComplete, error, filters, retry]);
+  }, [todos, busy, deleteItem, editItem, toggleComplete, filters]);
+
+  let updateErrorMessage = null;
+  if (props.updateError) {
+    updateErrorMessage = lastUpdateAction === 'add' ? 'Error adding TODO' : 'Error updating TODO';
+  }
 
   return (
     <>
@@ -228,7 +242,11 @@ function TodoList(props) {
           {busy && <CircularProgress color="secondary" />}
         </Box>
       </Toolbar>
-      {listOrErrorMessage}
+
+      {updateErrorMessage && <ErrorMessage error={updateErrorMessage} />}
+      {error && <ErrorMessage retry={retry} error={error.toString()} />}
+
+      {listOrEmptyMessage}
     </>
   );
 }
@@ -244,6 +262,7 @@ TodoList.propTypes = {
   searchFilter: PropTypes.string,
   updateFilters: PropTypes.func,
   error: PropTypes.object, // eslint-disable-line
+  updateError: PropTypes.object, // eslint-disable-line
   filters: filtersPropTypes
 };
 

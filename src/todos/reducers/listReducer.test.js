@@ -6,16 +6,16 @@ describe('listReducer tests', () => {
   let pendingState;
   let errorState;
   beforeEach(() => {
-    initialState = {todos: [], pending: false, error: null};
-    pendingState = {todos: [], pending: true, error: null};
-    errorState = {todos: [], pending: true, error: new Error('failed')};
+    initialState = {todos: null, pending: false, error: null};
+    pendingState = {todos: null, pending: true, error: null};
+    errorState = {todos: null, pending: true, error: new Error('failed')};
   });
 
   // initial state
 
   it('should return the correct initial state', () => {
     expect(reducer(undefined, {})).toEqual({
-      todos: [],
+      todos: null,
       error: null,
       pending: false
     });
@@ -25,12 +25,12 @@ describe('listReducer tests', () => {
 
   it('should handle getTodos', () => {
     expect(reducer(pendingState, actions.getTodos())).toEqual({
-      todos: [],
+      todos: null,
       error: null,
       pending: true
     });
     expect(reducer(errorState, actions.getTodos())).toEqual({
-      todos: [],
+      todos: null,
       error: null,
       pending: true
     });
@@ -48,7 +48,7 @@ describe('listReducer tests', () => {
   it('should handle getTodosError', () => {
     const action = actions.getTodosError(new Error('failed'));
     expect(reducer(initialState, action)).toEqual({
-      todos: [],
+      todos: null,
       error: new Error('failed'),
       pending: false
     });

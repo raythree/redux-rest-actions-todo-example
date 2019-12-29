@@ -24,6 +24,7 @@ function TodosComponent(props) {
               getTodos={props.getTodos}
               addTodo={props.addTodo}
               error={props.listError}
+              updateError={props.updateError}
               updateTodo={props.updateTodo}
               deleteTodo={props.deleteTodo}
               todos={props.todos}

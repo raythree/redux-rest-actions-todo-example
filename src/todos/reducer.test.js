@@ -6,7 +6,7 @@ describe('todos root reducer tests', () => {
     expect(reducer(undefined, {})).toEqual({
       list: {
         pending: false,
-        todos: [],
+        todos: null,
         error: null
       },
       filters: {

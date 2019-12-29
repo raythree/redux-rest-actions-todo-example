@@ -4,7 +4,7 @@ import {initiate, error} from './reducerHelper';
 import * as actions from '../actions';
 
 const initialState = {
-  todos: [],
+  todos: null,
   pending: false,
   error: null
 };
