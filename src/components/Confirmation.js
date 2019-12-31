@@ -21,7 +21,8 @@ function Confirmation(props) {
 
 Confirmation.propTypes = {
   onCancel: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired
+  onConfirm: PropTypes.func.isRequired,
+  children: PropTypes.node
 };
 
 export default Confirmation;

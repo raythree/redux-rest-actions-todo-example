@@ -1,3 +1,6 @@
+.todoapp {
+  min-width: 200px;
+}
 .header {
   height: 40px;
 }
@@ -8,4 +11,8 @@
   font-size: 1.2em;
   font-weight: bold;
   color: red;
+}
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
 }

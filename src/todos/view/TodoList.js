@@ -11,7 +11,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchIcon from '@material-ui/icons/Search';
-import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -195,7 +194,7 @@ function TodoList(props) {
       <div className="header">
         <h2>Todo List</h2>
       </div>
-      <Toolbar>
+      <div className="toolbar">
         <TextField
           id="add-todo"
           variant="outlined"
@@ -207,12 +206,12 @@ function TodoList(props) {
           autoComplete="off"
           size="small"
         />
-        <Box component="span" ml="1em">
+        <Box component="span" ml="1em" mr="1em">
           <Button variant="contained" color="primary" disabled={busy} onClick={addNewTodo}>
             <AddIcon />
           </Button>
         </Box>
-        <Box ml="1em">
+        <div className="visibilityFilter">
           Showing: {filterDisplay(visibility)}
           <ButtonMenu
             label="Change Filter"
@@ -221,7 +220,7 @@ function TodoList(props) {
             component="span"
             selected={visibility}
           />
-        </Box>
+        </div>
         <TextField
           id="search-todo"
           variant="outlined"
@@ -241,7 +240,7 @@ function TodoList(props) {
         <Box component="span" ml="1em">
           {busy && <CircularProgress color="secondary" />}
         </Box>
-      </Toolbar>
+      </div>
 
       {updateErrorMessage && <ErrorMessage error={updateErrorMessage} />}
       {error && <ErrorMessage retry={retry} error={error.toString()} />}

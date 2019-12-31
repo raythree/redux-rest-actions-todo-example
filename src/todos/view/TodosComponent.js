@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'production') {
 
 function TodosComponent(props) {
   return (
-    <Box m="1em">
+    <Box m="1em" className="todoapp">
       <Router basename={basename}>
         <Switch>
           <Route exact path="/">

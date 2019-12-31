@@ -17,13 +17,13 @@ export default createReducer(initialState, {
     draft.pending = false;
     draft.todos = action.payload.todos;
   },
-  [actions.addTodoSuccess]: (draft, action) => {
+  [actions.addTodoSuccess]: draft => {
     draft.pending = false;
   },
-  [actions.deleteTodoSuccess]: (draft, action) => {
+  [actions.deleteTodoSuccess]: draft => {
     draft.pending = false;
   },
-  [actions.updateTodoSuccess]: (draft, action) => {
+  [actions.updateTodoSuccess]: draft => {
     draft.pending = false;
   },
   [actions.getTodosError]: (draft, action) => {
