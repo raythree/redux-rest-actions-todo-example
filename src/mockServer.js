@@ -29,8 +29,8 @@ export function mockServer() {
     //  eslint-disable-next-line
     console.log(`query ===> ${JSON.stringify(config.params)}`);
     let vf = 'all';
-    if (config.params && config.params.filters && config.params.filters.visibility) {
-      vf = config.params.filters.visibility;
+    if (config.params && config.params.visibility) {
+      vf = config.params.visibility;
     }
     newTodos = newTodos.filter(item => {
       if (vf === 'all') return true;
@@ -38,9 +38,9 @@ export function mockServer() {
       else if (vf === 'not_completed' && !item.completed) return true;
       return false;
     });
-    if (config.params && config.params.filters && config.params.filters.search) {
+    if (config.params && config.params.search) {
       newTodos = newTodos.filter(item => {
-        const match = config.params.filters.search.toLowerCase();
+        const match = config.params.search.toLowerCase();
         return item.content.toLowerCase().indexOf(match) >= 0;
       });
     }
