@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/redux-rest-actions-todo-example/static/css/main.a30b55db.chunk.css",
-    "main.js": "/redux-rest-actions-todo-example/static/js/main.5980bd90.chunk.js",
-    "main.js.map": "/redux-rest-actions-todo-example/static/js/main.5980bd90.chunk.js.map",
+    "main.css": "/redux-rest-actions-todo-example/static/css/main.9a0af398.chunk.css",
+    "main.js": "/redux-rest-actions-todo-example/static/js/main.2cf76abf.chunk.js",
+    "main.js.map": "/redux-rest-actions-todo-example/static/js/main.2cf76abf.chunk.js.map",
     "runtime-main.js": "/redux-rest-actions-todo-example/static/js/runtime-main.fe456e3d.js",
     "runtime-main.js.map": "/redux-rest-actions-todo-example/static/js/runtime-main.fe456e3d.js.map",
-    "static/js/2.61218cac.chunk.js": "/redux-rest-actions-todo-example/static/js/2.61218cac.chunk.js",
-    "static/js/2.61218cac.chunk.js.map": "/redux-rest-actions-todo-example/static/js/2.61218cac.chunk.js.map",
+    "static/js/2.7b34a478.chunk.js": "/redux-rest-actions-todo-example/static/js/2.7b34a478.chunk.js",
+    "static/js/2.7b34a478.chunk.js.map": "/redux-rest-actions-todo-example/static/js/2.7b34a478.chunk.js.map",
     "index.html": "/redux-rest-actions-todo-example/index.html",
-    "precache-manifest.a2a8379cb652d3f6964abdd853ac22a7.js": "/redux-rest-actions-todo-example/precache-manifest.a2a8379cb652d3f6964abdd853ac22a7.js",
+    "precache-manifest.52321b7d9baa7165d22cad1d5071231f.js": "/redux-rest-actions-todo-example/precache-manifest.52321b7d9baa7165d22cad1d5071231f.js",
     "service-worker.js": "/redux-rest-actions-todo-example/service-worker.js",
-    "static/css/main.a30b55db.chunk.css.map": "/redux-rest-actions-todo-example/static/css/main.a30b55db.chunk.css.map",
-    "static/js/2.61218cac.chunk.js.LICENSE": "/redux-rest-actions-todo-example/static/js/2.61218cac.chunk.js.LICENSE"
+    "static/css/main.9a0af398.chunk.css.map": "/redux-rest-actions-todo-example/static/css/main.9a0af398.chunk.css.map",
+    "static/js/2.7b34a478.chunk.js.LICENSE": "/redux-rest-actions-todo-example/static/js/2.7b34a478.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.fe456e3d.js",
-    "static/js/2.61218cac.chunk.js",
-    "static/css/main.a30b55db.chunk.css",
-    "static/js/main.5980bd90.chunk.js"
+    "static/js/2.7b34a478.chunk.js",
+    "static/css/main.9a0af398.chunk.css",
+    "static/js/main.2cf76abf.chunk.js"
   ]
 }
