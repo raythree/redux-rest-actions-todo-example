@@ -2,7 +2,7 @@
 import React from 'react';
 import {Router} from 'react-router';
 import {createMemoryHistory} from 'history';
-import {render, fireEvent, waitForElement} from '@testing-library/react';
+import {render, fireEvent, wait, waitForDomChange} from '@testing-library/react';
 import DeleteTodo from './DeleteTodo';
 
 describe('DeleteTodo tests', () => {
@@ -13,45 +13,78 @@ describe('DeleteTodo tests', () => {
     props = {};
     props.getTodo = jest.fn(() => Promise.resolve({content: 'do stuff', completed: false}));
     props.deleteTodo = jest.fn().mockImplementation(() => Promise.resolve('1'));
-    (props.todo = {id: '1', content: 'do something', completed: false}),
-      (props.updatePending = false),
-      (props.updateError = null);
+    props.todo = {id: '1', content: 'do something', completed: false};
+    props.updatePending = false;
+    props.updateError = null;
     props.cancelUpdate = jest.fn();
   });
 
-  it('renders', async () => {
-    const {getByText} = render(
+  it('cancels delete', async () => {
+    const {findByText, getByText} = render(
       <Router history={history}>
         <DeleteTodo {...props} />
       </Router>
     );
-    await waitForElement(() => {
-      getByText(/are you sure/i);
-      getByText(/do something/i);
-      getByText(/not completed/i);
-    });
-  });
 
-  it('cancels delete', () => {
-    const {getByText} = render(
-      <Router history={history}>
-        <DeleteTodo {...props} />
-      </Router>
-    );
-    const cancelButton = getByText('Cancel');
+    await wait(() => {
+      findByText('Delete');
+    });
+
+    getByText(/do stuff/i);
+    getByText(/not completed/i);
+
+    const cancelButton = getByText('Cancel').parentNode;
     fireEvent.click(cancelButton);
-    expect(props.getTodo.mock.calls[0][0]).toBe(undefined);
+
+    expect(props.deleteTodo.mock.calls.length).toBe(0);
     expect(history.entries[1].pathname).toBe('/');
   });
 
-  it('issues delete call', () => {
+  it('issues delete', async () => {
+    const {findByText, getByText} = render(
+      <Router history={history}>
+        <DeleteTodo {...props} />
+      </Router>
+    );
+
+    await wait(() => {
+      findByText('Delete');
+    });
+
+    const deleteButton = getByText('Delete').parentNode;
+    fireEvent.click(deleteButton);
+    expect(props.deleteTodo.mock.calls.length).toBe(1);
+  });
+
+  it('shows error message if getTodo fails', async () => {
+    props.getTodo = jest.fn(() => Promise.resolve(null));
     const {getByText} = render(
       <Router history={history}>
         <DeleteTodo {...props} />
       </Router>
     );
-    const deleteButton = getByText('Delete');
+
+    await waitForDomChange(document.body);
+    getByText(/failed to retrieve/i);
+  });
+
+  it('stays on page if delete fails', async () => {
+    props.deleteTodo = jest.fn().mockImplementation(() => Promise.resolve(null));
+
+    const {findByText, getByText} = render(
+      <Router history={history}>
+        <DeleteTodo {...props} />
+      </Router>
+    );
+
+    await wait(() => {
+      findByText('Delete');
+    });
+
+    const deleteButton = getByText('Delete').parentNode;
     fireEvent.click(deleteButton);
     expect(props.deleteTodo.mock.calls.length).toBe(1);
+
+    expect(history.entries.length).toBe(1);
   });
 });
