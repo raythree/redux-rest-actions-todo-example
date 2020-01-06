@@ -69,7 +69,7 @@ function EditTodo(props) {
     );
   }
 
-  if (!value) return null;
+  if (value === null) return null;
 
   return (
     <>
