@@ -78,7 +78,7 @@ function EditTodo(props) {
         <TextField
           id="edit-todo"
           variant="outlined"
-          autoComplete="disable"
+          autoComplete="off"
           onChange={onChangeInput}
           value={value}
         />
@@ -88,7 +88,7 @@ function EditTodo(props) {
           Cancel
         </Button>
         <Box component="span" ml="1em">
-          <Button variant="contained" color="primary" onClick={save}>
+          <Button variant="contained" color="primary" onClick={save} disabled={!value}>
             Save
           </Button>
         </Box>
