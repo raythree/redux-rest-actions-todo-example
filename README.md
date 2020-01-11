@@ -1,6 +1,6 @@
 # Redux Rest Actions TODO Example
 
-Sample TODO app demonstrating the use of `redux-rest-actions` as discussed in [this Medium article](https://medium.com).
+Sample TODO app demonstrating the use of `redux-rest-actions` as discussed in [this Medium article](https://medium.com/@raythree/redux-rest-actions-dead-simple-redux-rest-middleware-4bfbe1d7a615).
 
 This app was generated with `create-react-app`, as setup pretty much as discussed in the article. It also added `react-router`, `react-router-dom` and `@material-ui-core`. It also includes a few sample tests using `@testing-library/react`. Any non-trivial SPA that you write will likely need to handle REST requests, multiple routes, and tests so you can use this as a starter.
 
